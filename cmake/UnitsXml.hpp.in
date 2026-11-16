@@ -1,0 +1,12 @@
+#pragma once
+
+#include "IO/Config/UnitLoader.hpp"
+
+#include <array>
+
+namespace sw::app {
+
+inline constexpr std::array<io::UnitXmlDocument, @UNIT_COUNT@> unitsXml = {{
+@UNIT_XML_DOCUMENTS@}};
+
+}

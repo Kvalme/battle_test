@@ -1,0 +1,30 @@
+digraph activation {
+  graph [rankdir=TB, bgcolor="white", pad="0.3", ranksep="0.35"];
+  node [shape=box, style="rounded,filled", fillcolor="#eef4ff", color="#526985", fontname="DejaVu Sans", fontsize=12];
+  edge [fontname="DejaVu Sans", fontsize=10, color="#526985"];
+  run [label="Scheduler::run()"];
+  finished [label="finished()?\ncanAct() / hasPendingWork()", shape=diamond];
+  next [label="Scheduler → World::activate(id)\nСледующий живой юнит; ++tick"];
+  effects [label="activateEffects(id)\nonActivation() → уменьшение remaining"];
+  alive [label="Юнит жив?",shape=diamond];
+  context [label="ActivationContext\nОдин кеш целей на всю активацию"];
+  propose [label="Следующая IAbility::propose(context)\nВ порядке abilities_ / XML"];
+  ready [label="Ready?",shape=diamond];
+  more [label="Есть ещё способность?",shape=diamond];
+  execute [label="beginOperation()\nIAction::execute(World&)\nendOperation()",fillcolor="#ddf3e6"];
+  done [label="Конец активации"];
+  stop [label="RunResult::Quiescent"];
+  run -> finished;
+  finished -> stop [label="да"];
+  finished -> next [label="нет; лимит/цикл\nне остановили run"];
+  next -> effects -> alive;
+  alive -> context [label="да"];
+  alive -> done [label="нет"];
+  context -> propose -> ready;
+  ready -> execute [label="да; action != nullptr"];
+  ready -> more [label="NotApplicable"];
+  more -> propose [label="да"];
+  more -> done [label="нет"];
+  execute -> done;
+  done -> finished [label="следующая итерация", style=dashed];
+}

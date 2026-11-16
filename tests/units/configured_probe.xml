@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unit name="probe">
+    <abilities>
+        <ability implementation="configured_probe" name="primary">
+            <properties>
+                <property name="markerText" type="string" value="first marker"/>
+            </properties>
+        </ability>
+        <ability implementation="configured_probe" name="secondary">
+            <properties>
+                <property name="markerText" type="string" value="second marker"/>
+            </properties>
+        </ability>
+    </abilities>
+</unit>

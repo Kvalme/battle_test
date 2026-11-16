@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unit name="swordsman">
+    <properties>
+        <property name="rending_chance" type="int" value="100"/>
+        <property name="rending" type="int" value="5"/>
+    </properties>
+    <abilities>
+        <ability implementation="rending">
+            <properties>
+                <property name="chanceStat" type="string" value="rending_chance"/>
+                <property name="damageStat" type="string" value="rending"/>
+                <property name="kind" type="string" value="melee"/>
+                <property name="minRange" type="int" value="1"/>
+                <property name="maxRange" type="int" value="1"/>
+                <property name="targetGroup" type="string" value="melee"/>
+            </properties>
+        </ability>
+        <ability implementation="attack" name="melee">
+            <properties>
+                <property name="damageStat" type="string" value="strength"/>
+                <property name="kind" type="string" value="melee"/>
+                <property name="minRange" type="int" value="1"/>
+                <property name="maxRange" type="int" value="1"/>
+                <property name="targetGroup" type="string" value="melee"/>
+            </properties>
+        </ability>
+        <ability implementation="move">
+            <properties>
+                <property name="cells" type="int" value="1"/>
+            </properties>
+        </ability>
+    </abilities>
+</unit>

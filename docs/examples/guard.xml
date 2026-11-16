@@ -1,0 +1,15 @@
+<unit name="guard">
+    <properties>
+        <property name="hp" type="int" value="30"/>
+        <property name="strength" type="int" value="4"/>
+    </properties>
+    <abilities>
+        <ability implementation="attack" name="melee">
+            <properties>
+                <property name="kind" type="string" value="melee"/>
+                <property name="damageStat" type="string" value="strength"/>
+            </properties>
+        </ability>
+        <ability implementation="move"/>
+    </abilities>
+</unit>

@@ -1,0 +1,26 @@
+digraph extension {
+  graph [rankdir=TB, bgcolor="white", pad="0.3", ranksep="0.4"];
+  node [shape=box, style="rounded,filled", fillcolor="#eef4ff", color="#526985", fontname="DejaVu Sans", fontsize=12];
+  edge [fontname="DejaVu Sans", fontsize=10, color="#526985"];
+  need [label="Новый юнит / новая механика"];
+  existing [label="Хватает attack, rending,\npoison_arrows и move?",shape=diamond];
+  xml [label="Только XML\nХарактеристики, параметры, порядок",fillcolor="#ddf3e6"];
+  attack [label="Обычный выбор цели и шанса?",shape=diamond];
+  base [label="Наследник AttackAbility\nРеализовать makeAction()"];
+  custom [label="Наследник IAbility\nРеализовать canAct() и propose()"];
+  action [label="IAction::execute()\nМгновенные изменения через World"];
+  persistent [label="Нужно поведение\nпосле execute()?",shape=diamond];
+  effect [label="IEffect на получателе\nСоздать в execute() → applyEffect()"];
+  registry [label="Зарегистрировать ФАБРИКУ способности\nregisterAbility(implementation, factory)"];
+  template [label="XML с implementation\nЭффекты отдельно не регистрируются"];
+  need -> existing;
+  existing -> xml [label="да"];
+  existing -> attack [label="нет"];
+  attack -> base [label="да"];
+  attack -> custom [label="нет"];
+  base -> action; custom -> action;
+  action -> persistent;
+  persistent -> effect [label="да, на одном юните"];
+  persistent -> registry [label="нет"];
+  effect -> registry -> template;
+}

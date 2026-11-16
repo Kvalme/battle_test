@@ -3,8 +3,11 @@
 #include "Details/CommandParserVisitor.hpp"
 
 #include <functional>
-#include <sstream>
+#include <istream>
+#include <stdexcept>
 #include <string>
+#include <unordered_map>
+#include <utility>
 
 namespace sw::io
 {
@@ -19,9 +22,14 @@ namespace sw::io
 					commandName,
 					[handler = std::move(handler)](std::istream& stream)
 					{
-						TCommandData data;
+						TCommandData data{};
 						CommandParserVisitor visitor(stream);
 						data.visit(visitor);
+						std::string extra;
+						if (stream >> extra && !extra.starts_with("//"))
+						{
+							throw std::runtime_error("Unexpected argument: " + extra);
+						}
 						handler(std::move(data));
 					});
 			if (!inserted)

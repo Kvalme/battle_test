@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unit name="hunter">
+    <properties>
+        <property name="poison_chance" type="int" value="100"/>
+        <property name="poison" type="int" value="5"/>
+    </properties>
+    <abilities>
+        <ability implementation="poison_arrows">
+            <properties>
+                <property name="chanceStat" type="string" value="poison_chance"/>
+                <property name="totalDamageStat" type="string" value="poison"/>
+                <property name="kind" type="string" value="ranged"/>
+                <property name="minRange" type="int" value="2"/>
+                <property name="maxRangeStat" type="string" value="range"/>
+                <property name="noAdjacent" type="bool" value="true"/>
+                <property name="targetGroup" type="string" value="ranged"/>
+            </properties>
+        </ability>
+        <ability implementation="attack" name="ranged">
+            <properties>
+                <property name="damageStat" type="string" value="agility"/>
+                <property name="kind" type="string" value="ranged"/>
+                <property name="minRange" type="int" value="2"/>
+                <property name="maxRangeStat" type="string" value="range"/>
+                <property name="noAdjacent" type="bool" value="true"/>
+                <property name="targetGroup" type="string" value="ranged"/>
+            </properties>
+        </ability>
+        <ability implementation="attack" name="melee">
+            <properties>
+                <property name="damageStat" type="string" value="strength"/>
+                <property name="kind" type="string" value="melee"/>
+                <property name="minRange" type="int" value="1"/>
+                <property name="maxRange" type="int" value="1"/>
+                <property name="targetGroup" type="string" value="melee"/>
+            </properties>
+        </ability>
+        <ability implementation="move">
+            <properties>
+                <property name="cells" type="int" value="1"/>
+            </properties>
+        </ability>
+    </abilities>
+</unit>

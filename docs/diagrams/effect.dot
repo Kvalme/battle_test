@@ -1,0 +1,21 @@
+digraph effect {
+  graph [rankdir=TB, bgcolor="white", pad="0.3", ranksep="0.4"];
+  node [shape=box, style="rounded,filled", fillcolor="#eef4ff", color="#526985", fontname="DejaVu Sans", fontsize=12];
+  edge [fontname="DejaVu Sans", fontsize=10, color="#526985"];
+  action [label="IAction::execute(World&)\nСоздаёт конкретный эффект IEffect"];
+  apply [label="World::applyEffect(unique_ptr<IEffect>)\nПроверяет target и remaining"];
+  key [label="Есть активный эффект\nс таким stackKey()?",shape=diamond];
+  refresh [label="Сохранить старый экземпляр\nremaining = max(old, incoming)\nНовый объект уничтожить; без onApply()"];
+  insert [label="Добавить в target.effects_\nВызвать onApply(World&)",fillcolor="#ddf3e6"];
+  activation [label="Активация ПОЛУЧАТЕЛЯ\nWorld::activateEffects(target)"];
+  callback [label="IEffect::onActivation(World&)\nНапример: World::damage()"];
+  timer [label="Если получатель жив:\n--remaining у исходного списка эффектов"];
+  retire [label="endOperation() → retireEffects()\nУдалить истёкшие эффекты\nили все эффекты погибшего получателя"];
+  action -> apply -> key;
+  key -> refresh [label="да"];
+  key -> insert [label="нет"];
+  insert -> activation [label="последующая активация"];
+  refresh -> activation;
+  activation -> callback -> timer -> retire;
+  retire -> activation [label="эффект ещё активен",style=dashed];
+}

@@ -576,3 +576,14 @@ FodyWeavers.xsd
 
 .DS_Store
 .idea
+# Local build directories
+/build/
+/build-*/
+
+# KDevelop project files
+.kdev4/
+*.kdev4
+
+# Internal working notes, not part of the solution
+/comments/
+*.kate-swp

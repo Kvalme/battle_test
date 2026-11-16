@@ -1,0 +1,14 @@
+<unit name="ember">
+    <properties>
+        <property name="hp" type="int" value="20"/>
+        <property name="burn_damage" type="int" value="2"/>
+    </properties>
+    <abilities>
+        <ability implementation="burning_attack">
+            <properties>
+                <property name="kind" type="string" value="melee"/>
+                <property name="damageStat" type="string" value="burn_damage"/>
+            </properties>
+        </ability>
+    </abilities>
+</unit>

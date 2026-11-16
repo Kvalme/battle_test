@@ -1,0 +1,23 @@
+digraph architecture {
+  graph [rankdir=TB, bgcolor="white", pad="0.3", nodesep="0.35", ranksep="0.5"];
+  node [shape=box, style="rounded,filled", fillcolor="#eef4ff", color="#526985", fontname="DejaVu Sans", fontsize=12, margin="0.15,0.1"];
+  edge [fontname="DejaVu Sans", fontsize=10, color="#526985"];
+  xml [label="assets/units/*.xml\nХарактеристики и порядок способностей"];
+  loader [label="loadUnitTemplates()\nРазбор и проверка шаблонов"];
+  registry [label="AbilityManager\nregisterAbility() → createAll()"];
+  world [label="World\nspawn() • activate() • finished()", fillcolor="#ddf3e6"];
+  scheduler [label="Scheduler\nrun() • step()", fillcolor="#ddf3e6"];
+  entity [label="Entity\nHP, позиция, характеристики"];
+  ability [label="abilities_: unique_ptr<IAbility>\nСпособности в порядке XML"];
+  effect [label="effects_: unique_ptr<IEffect>\nЭффекты на получателе"];
+  output [label="IEventSink::emit()\nEventAdapter → EventSystem → stdout"];
+  xml -> loader;
+  loader -> registry [label="проверка фабриками"];
+  loader -> world [label="UnitTemplate\nчерез World::spawn() в main.cpp"];
+  registry -> ability [label="новые экземпляры при spawn"];
+  scheduler -> world [label="activate()"];
+  world -> entity [label="хранит unique_ptr"];
+  entity -> ability [label="владеет"];
+  entity -> effect [label="владеет"];
+  world -> output [label="события"];
+}
